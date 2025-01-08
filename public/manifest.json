@@ -1,0 +1,30 @@
+{
+  "name": "Eco Market - Bank Sampah & UMKM",
+  "short_name": "Eco Market",
+  "description": "Aplikasi bank sampah dan UMKM",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4e73df",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/Assets/img/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/Assets/img/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/Assets/img/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

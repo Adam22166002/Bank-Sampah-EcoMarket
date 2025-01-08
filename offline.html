@@ -1,0 +1,51 @@
+<!-- public/offline.html -->
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Offline - Eco Market</title>
+    <link href="/Assets/css/sb-admin-2.min.css" rel="stylesheet" />
+  </head>
+  <body class="bg-light">
+    <div class="container">
+      <div class="row justify-content-center mt-5">
+        <div class="col-md-6 text-center">
+          <img
+            src="/Assets/img/logo.svg"
+            alt="Eco Market Logo"
+            style="width: 120px; margin-bottom: 20px"
+          />
+          <h2>Anda Sedang Offline</h2>
+          <p>Mohon periksa koneksi internet Anda dan coba lagi.</p>
+          <button onclick="checkConnection()" class="btn btn-primary">
+            Coba Lagi
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let lastPage = sessionStorage.getItem("lastPage") || "/";
+
+      function checkConnection() {
+        if (navigator.onLine) {
+          window.location.href = lastPage;
+        } else {
+          window.location.reload();
+        }
+      }
+
+      window.addEventListener("online", () => {
+        window.location.href = lastPage;
+      });
+
+      window.addEventListener("popstate", (event) => {
+        if (!navigator.onLine) {
+          event.preventDefault();
+          history.pushState(null, "", "/offline.html");
+        }
+      });
+    </script>
+  </body>
+</html>

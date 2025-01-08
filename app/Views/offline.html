@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Offline - Eco Market</title>
+    <link href="/Assets/css/sb-admin-2.min.css" rel="stylesheet" />
+    <!-- Tambahkan SweetAlert2 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <body class="bg-light">
+    <div class="container">
+      <div class="row justify-content-center mt-5">
+        <div class="col-md-6 text-center">
+          <img
+            src="/Assets/img/eco_market.svg"
+            alt="Eco Market Logo"
+            style="width: 120px; margin-bottom: 20px"
+          />
+          <h2>Anda Sedang Offline</h2>
+          <p>Mohon periksa koneksi internet Anda dan coba lagi.</p>
+          <button onclick="checkConnection()" class="btn btn-primary">
+            Coba Lagi
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let lastPage = sessionStorage.getItem("lastPage") || "/";
+      let checkingConnection = false;
+
+      // Function untuk mengecek koneksi internet
+      async function checkInternetConnection() {
+        try {
+          const response = await fetch("/ping", {
+            method: "HEAD",
+            cache: "no-store",
+          });
+          return response.ok;
+        } catch (error) {
+          return false;
+        }
+      }
+
+      async function checkConnection() {
+        if (checkingConnection) return;
+        checkingConnection = true;
+
+        // Tampilkan loading
+        Swal.fire({
+          title: "Memeriksa Koneksi",
+          text: "Mohon tunggu...",
+          allowOutsideClick: false,
+          showConfirmButton: false,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });
+
+        try {
+          const isConnected = await checkInternetConnection();
+
+          if (isConnected) {
+            Swal.fire({
+              title: "Koneksi Pulih",
+              text: "Mengalihkan ke halaman sebelumnya...",
+              icon: "success",
+              timer: 1500,
+              showConfirmButton: false,
+            }).then(() => {
+              window.location.href = lastPage;
+            });
+          } else {
+            Swal.fire({
+              title: "Masih Offline",
+              text: "Koneksi internet belum tersedia",
+              icon: "error",
+              timer: 2000,
+              showConfirmButton: false,
+            });
+          }
+        } catch (error) {
+          Swal.fire({
+            title: "Error",
+            text: "Gagal memeriksa koneksi",
+            icon: "error",
+            timer: 2000,
+            showConfirmButton: false,
+          });
+        } finally {
+          checkingConnection = false;
+        }
+      }
+
+      // Auto check koneksi setiap 30 detik
+      setInterval(async () => {
+        if (await checkInternetConnection()) {
+          window.location.href = lastPage;
+        }
+      }, 30000);
+
+      // Listen for online event
+      window.addEventListener("online", async () => {
+        const isConnected = await checkInternetConnection();
+        if (isConnected) {
+          window.location.href = lastPage;
+        }
+      });
+
+      // Prevent back navigation when offline
+      window.addEventListener("popstate", (event) => {
+        if (!navigator.onLine) {
+          event.preventDefault();
+          history.pushState(null, "", "/offline.html");
+        }
+      });
+    </script>
+  </body>
+</html>
