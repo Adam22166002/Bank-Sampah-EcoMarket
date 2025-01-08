@@ -1,3 +1,34 @@
+# Eco Market - Aplikasi Bank Sampah
+
+Eco Market adalah aplikasi web yang dirancang untuk memudahkan pengelolaan bank sampah dengan fitur modern dan pengalaman pengguna yang responsif. Aplikasi ini mendukung tiga peran pengguna: **Nasabah**, **Seller**, dan **Admin**.
+
+## Fitur Utama
+- **Autentikasi MyAuth**: Sistem login dan manajemen pengguna yang aman.
+- **Export Data**: Kemampuan untuk mengunduh data dalam format PDF dan Spreadsheet.
+- **PWA Push Notification**: Mendukung notifikasi push untuk meningkatkan interaksi pengguna.
+- **Responsif**: Dibangun dengan Bootstrap 5 untuk memastikan kompatibilitas di berbagai perangkat.
+- **Tiga Peran Pengguna**:
+  - **Nasabah**: Menyetorkan sampah dan melihat saldo.
+  - **Seller**: Menjual barang daur ulang.
+  - **Admin**: Mengelola data pengguna, transaksi, dan laporan.
+
+## Teknologi yang Digunakan
+- **Backend**: PHP dengan CodeIgniter 4 (CI4).
+- **Frontend**: Bootstrap 5.
+- **Database**: MySQL dengan ERD yang dirancang untuk efisiensi data.
+- **Library Tambahan**:
+  - MyAuth (autentikasi)
+  - PDF (export data)
+  - Spreadsheet (export data)
+- **Progressive Web App (PWA)**: Mendukung akses offline dan push notification.
+- **Bahasa Pemrograman Tambahan**: Java untuk beberapa fitur.
+
+## Instalasi
+1. Clone repositori ini:  
+   ```bash
+   git clone https://github.com/username/ecomarket.git
+   cd ecomarket
+
 # CodeIgniter 4 Application Starter
 
 ## What is CodeIgniter?
